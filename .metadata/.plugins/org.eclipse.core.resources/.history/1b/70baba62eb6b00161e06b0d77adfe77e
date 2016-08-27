@@ -48,13 +48,9 @@ public class Primalty
 		{
 			return true;
 		}
-		
 		for (int testerNum = 5; testerNum < candidatePrime; testerNum+=2)
 		{
-			if (candidatePrime % testerNum == 0)
-			{
-				return false;
-			}
+			
 		}
 		return true;
 	}
@@ -72,20 +68,6 @@ public class Primalty
 	 */
 	public static boolean halfOdd(int candidatePrime)
 	{
-		int checkUntilThisNumber = candidatePrime / 2;
-		
-		if (candidatePrime < 3 && candidatePrime > 1)
-		{
-			return true;
-		}
-		
-		for (int testerNum = 5; testerNum < checkUntilThisNumber; testerNum += 2)
-		{
-			if (candidatePrime % testerNum == 0)
-			{
-				return false;
-			}
-		}
 		return true;
 	}
 	
@@ -99,47 +81,8 @@ public class Primalty
 	 * This function returns true if the candidatePrime is indeed a prime
 	 * and false if it is not.
 	 */
-	public static boolean upToSQRT(int candidatePrime)
+	public static boolean upToSQRt(int candidatePrime)
 	{
-		// ToDo
-		return true;
-	}
-	
-	/**
-	 * This method actually follows some of the rules of Prime Numbers. 
-	 * I think this method is actually pretty efficient. 
-	 * @param candidatePrime
-	 * The positive integer that needs to be tested for primality.
-	 * @return
-	 * This function returns true if the candidatePrime is indeed a prime
-	 * and false if it is not.
-	 */
-	public static boolean checkPrime(int candidatePrime)
-	{
-		//ToDo
-		return true;
-	}
-	
-	/**
-	 * This method uses the Sieve Of Eratosthenes to determine primality
-	 * it should be very fast. It's best used when a good estimate for an upper bound
-	 * for what number needs to be checked is known (like in this case)
-	 * This implementation is not the most memory efficient algorithm.
-	 * There are better ways to implement the Sieve of Eratosthenes
-	 * 
-	 * If we wanted to solve a problem like (find the 50,000th prime and for 
-	 * the sake of argument we had no idea what it could be it's probably best
-	 * to use the checkPrime method)
-	 * 
-	 * @param candidatePrime
-	 * The positive integer that needs to be tested for primality.
-	 * @return
-	 * This function returns true if the candidatePrime is indeed a prime
-	 * and false if it is not.
-	 */
-	public static boolean SieveOfEratosthenes(int candidatePrime)
-	{
-		
 		return true;
 	}
 	

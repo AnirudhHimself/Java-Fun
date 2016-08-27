@@ -124,8 +124,6 @@ public class Primalty
 	 * This method uses the Sieve Of Eratosthenes to determine primality
 	 * it should be very fast. It's best used when a good estimate for an upper bound
 	 * for what number needs to be checked is known (like in this case)
-	 * This implementation is not the most memory efficient algorithm.
-	 * There are better ways to implement the Sieve of Eratosthenes
 	 * 
 	 * If we wanted to solve a problem like (find the 50,000th prime and for 
 	 * the sake of argument we had no idea what it could be it's probably best
