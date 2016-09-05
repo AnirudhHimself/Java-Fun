@@ -5,8 +5,9 @@ public class PrimaltyTest
 
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
-
+		long start = System.nanoTime();
+		long end = System.nanoTime();
+		System.out.println("This operation took: " + (end-start) + " nanoseconds");
 	}
 
 }

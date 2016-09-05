@@ -1,4 +1,7 @@
 package primalty;
+
+import java.util.ArrayList;
+
 /**
  * This class contains static methods that determine the primality of a number.
  * The methods have progressively more efficient algorithms for determining primality.
@@ -101,12 +104,28 @@ public class Primalty
 	 */
 	public static boolean upToSQRT(int candidatePrime)
 	{
-		// ToDo
+		int checkUntilThisNumber = (int) Math.sqrt((double) candidatePrime);
+		if (candidatePrime < 3 && candidatePrime > 1)
+		{
+			return true;
+		}
+		for (int testerNum = 5; testerNum < checkUntilThisNumber; testerNum += 2)
+		{
+			if (candidatePrime % testerNum == 0)
+			{
+				return false;
+			}
+		}
 		return true;
 	}
 	
 	/**
-	 * This method actually follows some of the rules of Prime Numbers. 
+	 * This method actually follows some of the rules of Prime Numbers.
+	 * Rule # 1
+	 *   All prime numbers other than 2, and 3 can be written in the form
+	 *   6k + 1
+	 * Rule # 2
+	 *   Only check up until the square root of the candidatePrime
 	 * I think this method is actually pretty efficient. 
 	 * @param candidatePrime
 	 * The positive integer that needs to be tested for primality.
@@ -116,8 +135,18 @@ public class Primalty
 	 */
 	public static boolean checkPrime(int candidatePrime)
 	{
-		//ToDo
-		return true;
+		boolean isPrime = true;
+		if (candidatePrime <= 1) return false;
+		if (candidatePrime <= 3) return true;
+		if (candidatePrime % 2 == 0) return false;
+		if (candidatePrime < 9) return true;
+		int limit = (int) Math.sqrt((double) candidatePrime);
+		for (int i = 5; i < limit; i+=6)
+		{
+			if(candidatePrime % i == 0) return false;
+			if(candidatePrime % (i+2) == 0) return false;
+		}
+		return isPrime;	
 	}
 	
 	/**
@@ -139,8 +168,46 @@ public class Primalty
 	 */
 	public static boolean SieveOfEratosthenes(int candidatePrime)
 	{
-		
+		// TODO
+		ArrayList<Integer> allPrimes = new ArrayList<Integer>();
+		allPrimes = sieve(candidatePrime);
+		int numPrimes = allPrimes.size();
+		double sum = 0;
+		for(double i: allPrimes)
+		{
+			sum+=i;
+		}
 		return true;
 	}
 	
+	/**
+	 * This is a helper function that creates the Sieve of Eratosthenes using
+	 * an ArrayList
+	 * @param maxNumber
+	 * @return
+	 * Returns an ArrayList with all the PrimeNumbers
+	 */
+	public static ArrayList<Integer> sieve(int maxNumber)
+	{
+		boolean[] primes = new boolean[maxNumber];
+		for (int i = 1; i < maxNumber; i++)
+			primes[i] = true;
+		
+		int limit = (int) Math.sqrt(maxNumber);
+		for (int i = 2; i <= limit; i++)
+			if (primes[i])
+				for (int j = 2; j*i < maxNumber; j++)
+					primes[j*i] = false;
+		
+		ArrayList<Integer> listOfPrimes = new ArrayList<Integer>();
+		for (int i = 0; i < primes.length; i++)
+			if(primes[i])
+				listOfPrimes.add(i);
+			
+		int[] arrayOfPrimes = new int[listOfPrimes.size()];
+		for (int i = 0; i < listOfPrimes.size(); i++)
+			arrayOfPrimes[i] = listOfPrimes.get(i);
+		
+		return listOfPrimes;
+	}
 }

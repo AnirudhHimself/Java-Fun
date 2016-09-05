@@ -1,0 +1,200 @@
+package primalty;
+
+import java.util.ArrayList;
+
+/**
+ * This class contains static methods that determine the primality of a number.
+ * The methods have progressively more efficient algorithms for determining primality.
+ * (Starting with an algorithm that checks every single number and ending with
+ * a Sieve Of Eratosthenes) The Purpose of this class is to experiment with time 
+ * savings of using a more efficient algorithm @author Anirudh Mylavarapu
+ *
+ */
+public class Primalty 
+{
+	/**
+	 * This method will check every single natural
+	 * number less than the candidatePrime to check for divisibility.
+	 * It as abhorrently inefficient
+	 * @param candidatePrime
+	 * The positive integer that needs to be tested for primality.
+	 * @return
+	 * This function returns true if the candidatePrime is indeed a prime
+	 * and false if it is not.
+	 */
+	public static boolean everyNumber(int candidatePrime)
+	{
+		for (int testerNum = 2; testerNum < candidatePrime; testerNum++)
+		{
+			if (candidatePrime % testerNum == 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * This method will check every odd natural
+	 * number less than the candidatePrime to check for divisibility.
+	 * It is half as inefficient as checking all the numbers, but it is
+	 * still detestable.
+	 * @param candidatePrime
+	 * The positive integer that needs to be tested for primality.
+	 * @return
+	 * This function returns true if the candidatePrime is indeed a prime
+	 * and false if it is not.
+	 */
+	public static boolean allOdd(int candidatePrime)
+	{
+		if (candidatePrime < 3 && candidatePrime > 1)
+		{
+			return true;
+		}
+		
+		for (int testerNum = 5; testerNum < candidatePrime; testerNum+=2)
+		{
+			if (candidatePrime % testerNum == 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * This method will check every odd natural
+	 * number less than the candidatePrime to check for divisibility.
+	 * It is half as inefficient as checking all the odd numbers, 
+	 * but it still has room for improvement.
+	 * @param candidatePrime
+	 * The positive integer that needs to be tested for primality.
+	 * @return
+	 * This function returns true if the candidatePrime is indeed a prime
+	 * and false if it is not.
+	 */
+	public static boolean halfOdd(int candidatePrime)
+	{
+		int checkUntilThisNumber = candidatePrime / 2;
+		
+		if (candidatePrime < 3 && candidatePrime > 1)
+		{
+			return true;
+		}
+		
+		for (int testerNum = 5; testerNum < checkUntilThisNumber; testerNum += 2)
+		{
+			if (candidatePrime % testerNum == 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * This method will check every odd natural
+	 * number less than the square root of the candidatePrime to check for divisibility. 
+	 * It's starting to get better but it still has room for improvement.
+	 * @param candidatePrime
+	 * The positive integer that needs to be tested for primality.
+	 * @return
+	 * This function returns true if the candidatePrime is indeed a prime
+	 * and false if it is not.
+	 */
+	public static boolean upToSQRT(int candidatePrime)
+	{
+		// ToDo
+		return true;
+	}
+	
+	/**
+	 * This method actually follows some of the rules of Prime Numbers.
+	 * Rule # 1
+	 *   All prime numbers other than 2, and 3 can be written in the form
+	 *   6k + 1
+	 * Rule # 2
+	 *   Only check up until the square root of the candidatePrime
+	 * I think this method is actually pretty efficient. 
+	 * @param candidatePrime
+	 * The positive integer that needs to be tested for primality.
+	 * @return
+	 * This function returns true if the candidatePrime is indeed a prime
+	 * and false if it is not.
+	 */
+	public static boolean checkPrime(int candidatePrime)
+	{
+		boolean isPrime = true;
+		if (candidatePrime <= 1) return false;
+		if (candidatePrime <= 3) return true;
+		if (candidatePrime % 2 == 0) return false;
+		if (candidatePrime < 9) return true;
+		int limit = (int) Math.sqrt((double) candidatePrime);
+		for (int i = 5; i < limit; i+=6)
+		{
+			if(candidatePrime % i == 0) return false;
+			if(candidatePrime % (i+2) == 0) return false;
+		}
+		return isPrime;	}
+	
+	/**
+	 * This method uses the Sieve Of Eratosthenes to determine primality
+	 * it should be very fast. It's best used when a good estimate for an upper bound
+	 * for what number needs to be checked is known (like in this case)
+	 * This implementation is not the most memory efficient algorithm.
+	 * There are better ways to implement the Sieve of Eratosthenes
+	 * 
+	 * If we wanted to solve a problem like (find the 50,000th prime and for 
+	 * the sake of argument we had no idea what it could be it's probably best
+	 * to use the checkPrime method)
+	 * 
+	 * @param candidatePrime
+	 * The positive integer that needs to be tested for primality.
+	 * @return
+	 * This function returns true if the candidatePrime is indeed a prime
+	 * and false if it is not.
+	 */
+	public static boolean SieveOfEratosthenes(int candidatePrime)
+	{
+		ArrayList<Integer> allPrimes = new ArrayList<Integer>();
+		allPrimes = sieve(candidatePrime + 1);
+		int numPrimes = allPrimes.size();
+		double sum = 0;
+		for(double i: allPrimes)
+		{
+			sum+=i;
+		}
+		return true;
+	}
+	
+	/**
+	 * This is a helper function that creates the Sieve of Eratosthenes using
+	 * an ArrayList
+	 * @param maxNumber
+	 * @return
+	 * Returns an ArrayList with all the PrimeNumbers
+	 */
+	public static ArrayList<Integer> sieve(int maxNumber)
+	{
+		boolean[] primes = new boolean[maxNumber];
+		for (int i = 1; i < maxNumber; i++)
+			primes[i] = true;
+		
+		int limit = (int) Math.sqrt(maxNumber);
+		for (int i = 2; i <= limit; i++)
+			if (primes[i])
+				for (int j = 2; j*i < maxNumber; j++)
+					primes[j*i] = false;
+		
+		ArrayList<Integer> listOfPrimes = new ArrayList<Integer>();
+		for (int i = 0; i < primes.length; i++)
+			if(primes[i])
+				listOfPrimes.add(i);
+			
+		int[] arrayOfPrimes = new int[listOfPrimes.size()];
+		for (int i = 0; i < listOfPrimes.size(); i++)
+			arrayOfPrimes[i] = listOfPrimes.get(i);
+		
+		return listOfPrimes;
+	}
+}
